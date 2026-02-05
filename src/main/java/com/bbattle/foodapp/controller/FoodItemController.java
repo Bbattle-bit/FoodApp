@@ -9,6 +9,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping("api/food")
+@CrossOrigin(origins = "http://localhost:5173") // React + Vite
 public class FoodItemController {
     @Autowired
     private FoodItemRepository foodItemRepository;
