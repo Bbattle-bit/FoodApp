@@ -14,8 +14,10 @@ function NavBar() {
             <Link to="/menu" className="hover:text-green-500">Menu</Link>
             </div>
             <div id="Actions" className="space-x-4 max-md:hidden">
-                <button className="px-4 py-2 bg-green-500 text-white rounded hover:bg-green-600 ">Login</button>
-                <button className="px-4 py-2 bg-orange-400 text-white rounded hover:bg-orange-500">Sign Up</button>
+                <button className="px-4 py-2 bg-green-500 text-white rounded hover:bg-green-600 "><Link to="/LogIn" >Log In</Link></button>
+                <button className="px-4 py-2 bg-orange-400 text-white rounded hover:bg-orange-500">
+                    Sign Up
+                </button>
             </div>
         </nav>
     )
