@@ -1,7 +1,16 @@
 import React from "react";
 import {Link} from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
 function NavBar() {
+    const navigate = useNavigate();
+    const isLoggedIn = localStorage.getItem("isLoggedIn") === "true";
+
+    const handleLogout = () => {
+        localStorage.removeItem("userEmail");
+        localStorage.setItem("isLoggedIn", "false");
+        navigate("/LogIn");
+    };
     return (
         <nav className="flex items-center justify-between p-4 bg-white shadow-md">
             <div id="Logo">
@@ -14,10 +23,20 @@ function NavBar() {
             <Link to="/menu" className="hover:text-green-500">Menu</Link>
             </div>
             <div id="Actions" className="space-x-4 max-md:hidden">
-                <button className="px-4 py-2 bg-green-500 text-white rounded hover:bg-green-600 "><Link to="/LogIn" >Log In</Link></button>
-                <button className="px-4 py-2 bg-orange-400 text-white rounded hover:bg-orange-500">
-                    Sign Up
+                {isLoggedIn ? (
+                    <button onClick={handleLogout} className="px-4 py-2 bg-red-500 text-white rounded hover:bg-red-600 cursor-pointer">
+                        Log Out
+                    </button>
+                ) : (
+                    <>
+                <button className="px-4 py-2 bg-green-500 text-white rounded hover:bg-green-600 cursor-pointer ">
+                    <Link to="/LogIn" >Log In</Link>
                 </button>
+                <button className="px-4 py-2 bg-orange-400 text-white rounded hover:bg-orange-500 cursor-pointer">
+                    <Link to="/SignUp">Sign Up</Link>
+                </button>
+                    </>
+                )}
             </div>
         </nav>
     )

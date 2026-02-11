@@ -10,4 +10,6 @@ import java.util.Optional;
 //findByEmail è un esempio di query custom che useremo per login/autenticazione.
 public interface UserRepository extends  JpaRepository<User,Long>{
     Optional<User> findByEmail(String email);
+
+    boolean existsByEmail(String email);
 }

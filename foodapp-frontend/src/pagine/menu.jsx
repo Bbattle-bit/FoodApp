@@ -1,10 +1,19 @@
 import React,{useEffect, useState} from 'react'
- 
+import { useNavigate } from 'react-router-dom';
 function Menu() {
     const [menu, setMenu] = useState([]);
     const [loading, setLoading] = useState(true);
+    const navigate = useNavigate();
 
     useEffect(() => {
+        // Check if user is authenticated
+        // const user = localStorage.getItem('userEmail');
+        // if (!user) {
+        //     navigate('/LogIn');
+        //     return;
+        // }
+
+        // Fetch menu data from backend API
         fetch('http://localhost:8080/api/food')
             .then(res => res.json())
             .then(data => {
@@ -12,11 +21,11 @@ function Menu() {
                 setLoading(false);
             })
             .catch(err => console.error('Error fetching menu:', err));
-    }, []);
+    }, [navigate]);
 
     if (loading) return <div className="p-10 text-xl">Caricamento menu...</div>;
     return (
-<div className="p-10 grid grid-cols-2  lg:grid-cols-3 gap-6 ">
+<div className="p-10 grid grid-cols-1 md:grid-cols-2  lg:grid-cols-3 gap-6 ">
       {menu.map(food => (
         <div key={food.id} className="border p-4 rounded shadow hover:shadow-lg transition">
             <div>

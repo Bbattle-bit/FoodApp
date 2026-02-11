@@ -5,6 +5,7 @@ import Navbar from './components/Navbar.jsx'
 import Home from './pagine/Home.jsx'
 import Menu from './pagine/Menu.jsx'
 import LogIn from './pagine/LogIn.jsx'
+import SignUp from './pagine/SignUp.jsx'
 
 function App() {
   return (
@@ -14,6 +15,7 @@ function App() {
         <Route path="/" element={<Home />} />
         <Route path="/menu" element={<Menu />} />
         <Route path="/LogIn" element={<LogIn />} />
+        <Route path="/SignUp" element={<SignUp />} /> 
       </Routes>
     </Router>
   )
