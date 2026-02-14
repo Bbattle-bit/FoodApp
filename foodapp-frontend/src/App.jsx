@@ -6,7 +6,7 @@ import Home from './pagine/Home.jsx'
 import Menu from './pagine/Menu.jsx'
 import LogIn from './pagine/LogIn.jsx'
 import SignUp from './pagine/SignUp.jsx'
-
+import Home_admin from './pagine_admin/home_admin.jsx'
 function App() {
   return (
     <Router>
@@ -16,6 +16,7 @@ function App() {
         <Route path="/menu" element={<Menu />} />
         <Route path="/LogIn" element={<LogIn />} />
         <Route path="/SignUp" element={<SignUp />} /> 
+        <Route path="admin/admin_home" element={<Home_admin />} />
       </Routes>
     </Router>
   )

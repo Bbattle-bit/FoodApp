@@ -6,22 +6,23 @@ function Menu() {
     const navigate = useNavigate();
 
     useEffect(() => {
-        // Check if user is authenticated
-        // const user = localStorage.getItem('userEmail');
-        // if (!user) {
-        //     navigate('/LogIn');
-        //     return;
-        // }
-
-        // Fetch menu data from backend API
-        fetch('http://localhost:8080/api/food')
-            .then(res => res.json())
+        const token = localStorage.getItem("token");
+    
+        fetch('http://localhost:8080/api/food', {
+            headers: {
+                "Authorization": "Bearer " + token
+            }
+        })
+            .then(res => {
+                if (!res.ok) throw new Error("Errore fetching menu: " + res.status);
+                return res.json();
+            })
             .then(data => {
                 setMenu(data);
                 setLoading(false);
             })
-            .catch(err => console.error('Error fetching menu:', err));
-    }, [navigate]);
+            .catch(err => console.error(err));
+    }, []); 
 
     if (loading) return <div className="p-10 text-xl">Caricamento menu...</div>;
     return (

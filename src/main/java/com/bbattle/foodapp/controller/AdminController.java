@@ -6,12 +6,13 @@ import com.bbattle.foodapp.repository.OrderRepository;
 import com.bbattle.foodapp.repository.OrderItemRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.security.access.prepost.PreAuthorize;
 
 import java.util.List;
 
 @RestController
 @RequestMapping("/api/admin")
-
+@PreAuthorize("hasRole('ADMIN')")  // tutto qui dentro è admin-only
 public class AdminController {
 
     @Autowired

@@ -34,7 +34,7 @@ function FormSignUp() {
                 password: formData.password,
                 city: formData.city,
                 address: formData.address,
-                role: "ROLE_USER"  // puoi mettere default o lasciare che il backend lo gestisca  
+                role: "USER"  // puoi mettere default o lasciare che il backend lo gestisca  
             })
         })
         //gestire la risposta del backend e mostrare eventuali messaggi di successo o errore
