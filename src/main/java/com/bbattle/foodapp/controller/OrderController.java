@@ -10,11 +10,13 @@ import com.bbattle.foodapp.repository.FoodItemRepository;
 import com.bbattle.foodapp.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.security.access.prepost.PreAuthorize;
 
 import java.util.List;
 
 @RestController
 @RequestMapping("/api/orders")
+@PreAuthorize("hasRole('ADMIN')")  // tutto qui dentro è admin-only
 
 public class OrderController {
 
@@ -72,5 +74,13 @@ public class OrderController {
                 .orElseThrow(() -> new RuntimeException("Ordine non trovato"));
         order.setStatus(status);
         return orderRepository.save(order);
+    }
+
+    // DELETE cancellare un ordine
+    @DeleteMapping("/{orderId}")
+    public void deleteOrder(@PathVariable Long orderId) {
+        Order order = orderRepository.findById(orderId)
+                .orElseThrow(() -> new RuntimeException("Ordine non trovato"));
+        orderRepository.delete(order);
     }
 }

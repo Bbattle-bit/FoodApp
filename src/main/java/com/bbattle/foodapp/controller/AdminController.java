@@ -22,7 +22,7 @@ public class AdminController {
     private OrderItemRepository orderItemRepository;
 
     // GET ordini pendenti
-    @GetMapping("/pending-orders")
+    @GetMapping("/api/orders/pending")
     public List<Order> getPendingOrders() {
         return orderRepository.findByStatus("PENDING");
     }

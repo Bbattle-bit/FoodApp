@@ -1,5 +1,7 @@
 package com.bbattle.foodapp.model;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+
 import jakarta.persistence.*;
 import lombok.Data;
 
@@ -16,6 +18,7 @@ public class OrderItem {
 
     @ManyToOne
     @JoinColumn(name = "order_id")
+    @JsonBackReference // per evitare problemi di serializzazione JSON
     private Order order;
 
     @ManyToOne

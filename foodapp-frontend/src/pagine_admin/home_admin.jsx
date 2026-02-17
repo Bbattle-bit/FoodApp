@@ -4,6 +4,7 @@ import { useEffect } from "react";
 function Home_admin() {
     const navigate = useNavigate();
 
+    // Controllo del token JWT e del ruolo dell'utente
     useEffect(() => {
         const token = localStorage.getItem("token");
         if (!token) {
