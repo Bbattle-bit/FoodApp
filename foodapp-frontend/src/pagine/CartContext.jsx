@@ -1,11 +1,19 @@
-import { createContext, useContext, useState } from "react";
+import { createContext, useContext, useState, useEffect } from "react";
 
-// Crea il contesto
 const CartContext = createContext();
 
-// Provider da mettere intorno alle tue Routes
 export function CartProvider({ children }) {
-    const [carrello, setCarrello] = useState([]);
+    const [carrello, setCarrello] = useState(() => {
+        // carica dal localStorage all'avvio
+        const saved = localStorage.getItem("carrello");
+        return saved ? JSON.parse(saved) : [];
+    });
+
+    // ogni volta che il carrello cambia, salva nel localStorage
+    useEffect(() => {
+        localStorage.setItem("carrello", JSON.stringify(carrello));
+    }, [carrello]);
+
     return (
         <CartContext.Provider value={{ carrello, setCarrello }}>
             {children}
@@ -13,7 +21,4 @@ export function CartProvider({ children }) {
     );
 }
 
-// Hook comodo per usare il carrello in ogni componente
-export function useCart() {
-    return useContext(CartContext);
-}
+export const useCart = () => useContext(CartContext);
