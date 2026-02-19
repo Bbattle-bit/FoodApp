@@ -17,7 +17,8 @@ public class Order {
     private Long id;
 
     private LocalDateTime orderDate;
-    private String status; //es: PENDING, COMPLETED ...
+    @Enumerated(EnumType.STRING) // Salva l'enum come stringa nel database
+    private OrderStatus status; //es: PENDING, COMPLETED ...
 
     @ManyToOne
     @JoinColumn(name = "user_id")

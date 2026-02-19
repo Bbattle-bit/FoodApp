@@ -44,6 +44,11 @@ function NavBar() {
                         <button onClick={handleLogout} className="px-4 py-2 bg-red-500 text-white rounded hover:bg-red-600 cursor-pointer">
                             Log Out
                         </button>
+                        <button>
+                            <Link to="/carrello" className="px-4 py-2 bg-yellow-400 text-white rounded hover:bg-yellow-500 cursor-pointer">
+                                Carrello
+                            </Link>
+                        </button>
                     </>
                 ) : (
                     <>

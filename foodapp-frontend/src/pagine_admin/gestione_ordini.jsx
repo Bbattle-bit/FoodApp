@@ -94,10 +94,12 @@ function Gestione_ordini() {
     };
     
     if(loading) return <div className="p-10 text-xl">Caricamento ordini...</div>;
+
     return (
         <div>
             <h1 className="text-center">Gestione Ordini</h1>
             <div className="p-10 grid grid-cols-1 md:grid-cols-2  lg:grid-cols-3 gap-6 ">
+                
                 {ordini.map(ordine => (
                     <div key={ordine.id} className="border p-4 rounded shadow hover:shadow-lg transition">
                         <h2 className="text-xl font-bold">{ordine.user.username}</h2>
@@ -111,6 +113,7 @@ function Gestione_ordini() {
                         <option value="IN_ATTESA_DI_CONFERMA">In attesa di conferma dal locale</option>
                         <option value="IN_PREPARAZIONE">in preparazione</option>
                         <option value="IN_CONSEGNA">in consegna</option>
+                        <option value="CONSEGNATO">Consegnato</option>
                     </select>
                             <div>
                             {ordine.items.map(item => (
@@ -124,7 +127,8 @@ function Gestione_ordini() {
                         </button>
   
                     </div>
-                ))}
+                ),)             
+                }
 
             </div>
         </div>

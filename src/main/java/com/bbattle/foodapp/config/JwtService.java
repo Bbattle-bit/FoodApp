@@ -23,7 +23,7 @@ public class JwtService {
             .setSubject(email)
             .claim("role", role) // Aggiungi il ruolo come claim
             .setIssuedAt(new Date())
-            .setExpiration(new Date(System.currentTimeMillis() + 1000 * 60 * 60)) // 1 ora di validità
+            //.setExpiration(new Date(System.currentTimeMillis() + 1000 * 60 * 60)) // 1 ora di validità
             .signWith(getSignKey(), SignatureAlgorithm.HS256)
             .compact();
     }

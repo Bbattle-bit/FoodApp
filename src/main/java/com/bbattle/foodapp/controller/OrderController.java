@@ -2,6 +2,7 @@ package com.bbattle.foodapp.controller;
 
 import com.bbattle.foodapp.model.Order;
 import com.bbattle.foodapp.model.OrderItem;
+import com.bbattle.foodapp.model.OrderStatus;
 import com.bbattle.foodapp.model.FoodItem;
 import com.bbattle.foodapp.model.User;
 import com.bbattle.foodapp.repository.OrderRepository;
@@ -9,8 +10,13 @@ import com.bbattle.foodapp.repository.OrderItemRepository;
 import com.bbattle.foodapp.repository.FoodItemRepository;
 import com.bbattle.foodapp.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.UserDetails;
 
 import java.util.List;
 
@@ -69,11 +75,30 @@ public class OrderController {
 
     // PUT aggiornare lo status di un ordine
     @PutMapping("/{orderId}/status")
-    public Order updateOrderStatus(@PathVariable Long orderId, @RequestParam String status) {
+    public ResponseEntity<?> updateOrderStatus(
+            @PathVariable Long orderId,
+            @RequestParam String status) {
+
+        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+
+        if(auth == null || !auth.getAuthorities().stream()
+                .anyMatch(a -> a.getAuthority().equals("ROLE_ADMIN"))) {
+            return ResponseEntity.status(403).body("Non autorizzato");
+        }
+
+        // Trova ordine
         Order order = orderRepository.findById(orderId)
                 .orElseThrow(() -> new RuntimeException("Ordine non trovato"));
-        order.setStatus(status);
-        return orderRepository.save(order);
+
+        // Convalida stato
+        try {
+            OrderStatus newStatus = OrderStatus.valueOf(status);
+            order.setStatus(newStatus);
+        } catch (IllegalArgumentException e) {
+            return ResponseEntity.badRequest().body("Stato non valido");
+        }
+
+        return ResponseEntity.ok(orderRepository.save(order));
     }
 
     // DELETE cancellare un ordine
