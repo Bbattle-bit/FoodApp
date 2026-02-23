@@ -10,7 +10,8 @@ import Home_admin from './pagine_admin/home_admin.jsx'
 import Gestione_ordini from './pagine_admin/gestione_ordini.jsx'
 import Carrello from './pagine/Carrello.jsx'
 import {CartProvider} from './pagine/CartContext.jsx'
-
+import Success from './pagine/Success.jsx'
+import Cancel from './pagine/Cancel.jsx'
 function App() {
   return (
     <CartProvider>
@@ -24,6 +25,8 @@ function App() {
           <Route path="admin/admin_home" element={<Home_admin />} />
           <Route path="admin/gestione_ordini" element={<Gestione_ordini />} />
           <Route path="/carrello" element={<Carrello />} />
+          <Route path="/success" element={<Success />} />
+          <Route path="/cancel" element={<Cancel />} />
         </Routes>
       </Router>
     </CartProvider>

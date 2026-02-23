@@ -64,9 +64,10 @@ function Menu() {
                             <p className="mt-2 font-semibold">€{food.price.toFixed(2)}</p>
                             <button 
                                 onClick={() => handleAddToCart(food)} 
-                                className="bg-green-500 text-white px-4 py-2 rounded hover:bg-green-600 transition"
+                                className="bg-green-500 text-white px-4 py-2 rounded hover:bg-green-600 transition cursor-pointer"
                             >
                                 Aggiungi al carrello
+
                             </button>
                         </div>
                     </div>

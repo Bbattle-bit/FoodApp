@@ -29,18 +29,21 @@ protected void doFilterInternal(HttpServletRequest request,
                                 FilterChain filterChain)
         throws ServletException, java.io.IOException {
 
-    System.out.println("🔥 FILTRO JWT ESEGUITO 🔥 per URL: " + request.getRequestURI());
+    
+    String path = request.getRequestURI();
 
+
+    System.out.println("🔥 FILTRO JWT ESEGUITO 🔥 per URL: " + path);
+
+    // resto della logica JWT
     final String authHeader = request.getHeader("Authorization");
-
-    if (authHeader == null || authHeader.isEmpty() || !authHeader.startsWith("Bearer ")) {
+    if (authHeader == null || !authHeader.startsWith("Bearer ")) {
         filterChain.doFilter(request, response);
         return;
     }
 
     try {
         String token = authHeader.substring(7);
-        System.out.println("TOKEN RICEVUTO DAL CLIENT: " + token);
 
         if(token.isBlank()){
             filterChain.doFilter(request, response);
@@ -50,11 +53,7 @@ protected void doFilterInternal(HttpServletRequest request,
         String email = jwtService.extractEmail(token);
         String role = jwtService.extractRole(token);
 
-        System.out.println("EMAIL DAL TOKEN: " + email);
-        System.out.println("ROLE DAL TOKEN: " + role);
-
         if(email != null && role != null){
-            // Gestione automatica ROLE_
             String grantedRole = role.startsWith("ROLE_") ? role : "ROLE_" + role;
             UsernamePasswordAuthenticationToken authToken =
                     new UsernamePasswordAuthenticationToken(
@@ -64,15 +63,13 @@ protected void doFilterInternal(HttpServletRequest request,
                     );
 
             SecurityContextHolder.getContext().setAuthentication(authToken);
-            System.out.println("AUTH SETTATA CON: " + grantedRole);
         }
 
-    } catch (JwtException e) {
-        e.printStackTrace(); // così vedi se c'è qualche errore nel parsing
+    } catch (Exception e) {
+        e.printStackTrace();
     }
 
     filterChain.doFilter(request, response);
 }
-
     
 }

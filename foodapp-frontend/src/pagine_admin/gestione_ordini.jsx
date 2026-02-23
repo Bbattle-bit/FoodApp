@@ -111,9 +111,11 @@ function Gestione_ordini() {
                         className="border rounded p-1 mt-2"
                     >
                         <option value="IN_ATTESA_DI_CONFERMA">In attesa di conferma dal locale</option>
+                        <option value="ACCETTATO">Ordine accettato</option>
                         <option value="IN_PREPARAZIONE">in preparazione</option>
                         <option value="IN_CONSEGNA">in consegna</option>
                         <option value="CONSEGNATO">Consegnato</option>
+                        <option value="CANCELLATO">Ordine cancellato</option>
                     </select>
                             <div>
                             {ordine.items.map(item => (

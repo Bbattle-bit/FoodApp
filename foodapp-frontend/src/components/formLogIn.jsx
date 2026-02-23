@@ -40,7 +40,7 @@ function FormLogIn() {   // MAIUSCOLO!
             const role = payload.role;
 
             if(role === "ADMIN"){
-                navigate("/admin_home");
+                navigate("/admin/admin_home");
             } else {
                 navigate("/menu");
             }
